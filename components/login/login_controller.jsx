@@ -364,6 +364,10 @@ export default class LoginController extends React.Component {
         const usernameSigninEnabled = this.state.usernameSigninEnabled;
         const emailSigninEnabled = this.state.emailSigninEnabled;
 
+        var params = new URLSearchParams(location.href.split("?")[1] || '');
+        if (gitlabSigninEnabled && !params.get("regular_login"))
+          window.location = Client4.getOAuthRoute() + '/gitlab/login' + this.props.location.search;
+
         if (emailSigninEnabled || usernameSigninEnabled || ldapEnabled) {
             let errorClass = '';
             if (this.state.serverError) {
